@@ -1,0 +1,12 @@
+cb0ab98cf17a228b811742370e6c5fe5 *DESCRIPTION
+48d4bef4aff3824a8c275c22ed35e3e2 *LICENSE
+03988fe75ace27becc42ede1a87eb7a9 *NAMESPACE
+e81a7fedca84dc49a2cce5b36ca441f8 *NEWS.md
+6655ffcf97cf772f034afc45dbbe8861 *R/ReportSubtotal-package.R
+f89bad0ae7bd8b85b1db4c55af41c0ff *R/subtotal_dupe_removal.R
+d427dcd7cbed6e2e0d1d9cef39336371 *R/subtotal_row.R
+9baff1c926fda836ef847ccdaaac1109 *R/subtotal_section.R
+cdb57b966a7a1f37eb6c77b6bae1674d *man/ReportSubtotal-package.Rd
+f25aa1cf3babfad1cb4e9ce64b320dc0 *man/subtotal_dupe_removal.Rd
+a568bd02179786520ee309f60c157505 *man/subtotal_row.Rd
+4d85cee0615f82d97f46cb4b4fe645f8 *man/subtotal_section.Rd
