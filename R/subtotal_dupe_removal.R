@@ -9,7 +9,7 @@
 #' @param iterator Minimum number of rows meant to be between each section. Usually two.
 #' @param skip Number of rows to skip removing rows from. Usually zero. Can be used to dodge NA values.
 #' @param remove Label of subtotals to be removed. Usually "All".
-#' @param suffix Suffix to disambiguate required column name if already taken.
+#' @param lead_name Default name for lead column used to filter duplicates.
 
 #' @details Adds a leading version of the requested column,
 #' which places each observation in the same row as the next observation.
@@ -38,9 +38,8 @@
 #' subtotal_dupe_removal(3, skip = 1)
 
 subtotal_dupe_removal <- function(data, column, iterator = 2, skip = 0,
-                                  remove = "All", suffix = "_Default_Suffix"){
+                                  remove = "All", lead_name = "Lead_Column"){
 
-  original_data_names <- names(data)
   if(length(column) > 1){
     stop("This function only accepts one column")
   }
@@ -49,17 +48,23 @@ subtotal_dupe_removal <- function(data, column, iterator = 2, skip = 0,
                    "Your iterator is too big for this data report.",
                    "You're skipping through too many rows."))
   }
-  if("Lead_Of_Remove_Column" %in% names(data)){
-    names(data)[names(data) == "Lead_Of_Remove_Column"] <- "Lead_Of_Remove_Column_Default_Suffix"
-    #data <- rename_at(data, vars(Lead_Of_Remove_Column), function(x){x <- "Lead_Of_Remove_Column_Default_Suffix"})
-    warning("Duplicate column name detected, adding default suffix")
+  i <- 1
+  while(lead_name %in% names(data) & i < 1000){
+    lead_name <- paste0(lead_name, letters[sample(1:length(letters), 1)])
+    i <- i + 1
+  }
+  if(i == 1000){
+    stop("Please designate an unused name in your data frame in the lead_name parameter
+         and try again.")
   }
 
-  lead_data <- mutate_at(data, .vars = column, .funs = c("Lead_Of_Remove_Column" = lead), n = iterator)
-  lead_data <- filter(lead_data,
-                      !(row_number() > skip & across("Lead_Of_Remove_Column") == remove & across(all_of(column)) == remove) &
-                        !(row_number() > (nrow(data) - iterator) & across(all_of(column)) == remove))
-  lead_data <- select(lead_data, -"Lead_Of_Remove_Column")
-  names(lead_data) <- original_data_names
-  lead_data
+  lead_column <- select(data, column) %>% rename_all(function(x){x = lead_name})
+  lead_data <- cbind(data, lead_column)
+  lead_data <- mutate_at(lead_data, .vars = lead_name,
+                         .funs = lead, n = iterator)
+  lead_data_filter <- filter(lead_data,
+                             !(row_number() > skip & across(lead_name) == remove & across(all_of(column)) == remove) &
+                               !(row_number() > (nrow(data) - iterator) & across(all_of(column)) == remove))
+  lead_data_filter <- select(lead_data_filter, -lead_name)
+  lead_data_filter
 }

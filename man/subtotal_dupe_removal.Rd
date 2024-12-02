@@ -10,7 +10,7 @@ subtotal_dupe_removal(
   iterator = 2,
   skip = 0,
   remove = "All",
-  suffix = "_Default_Suffix"
+  lead_name = "Lead_Column"
 )
 }
 \arguments{
@@ -24,7 +24,7 @@ subtotal_dupe_removal(
 
 \item{remove}{Label of subtotals to be removed. Usually "All".}
 
-\item{suffix}{Suffix to disambiguate required column name if already taken.}
+\item{lead_name}{Default name for lead column used to filter duplicates.}
 }
 \value{
 The data report without duplicate subtotal rows.

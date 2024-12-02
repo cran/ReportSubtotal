@@ -6,7 +6,7 @@
 \alias{ReportSubtotal-package}
 \title{ReportSubtotal: Adds Subtotals to Data Reports}
 \description{
-Adds subtotal rows / sections (a la SAS's Proc Tabulate All option) to a Group By output by running a series of Group Bys with partial sets of the same variables and combining the results with the original. Can be used to add comprehensive information to a data report or to quickly aggregate Group By outputs used to gain a greater understanding of data.
+Adds subtotal rows / sections (a la the 'SAS' 'Proc Tabulate' All option) to a Group By output by running a series of Group By functions with partial sets of the same variables and combining the results with the original. Can be used to add comprehensive information to a data report or to quickly aggregate Group By outputs used to gain a greater understanding of data.
 }
 \author{
 \strong{Maintainer}: Yoni Aboody \email{yoniaboody@gmail.com} [copyright holder]

@@ -19,5 +19,6 @@
 #' @importFrom utils combn
 #' @importFrom dplyr lead
 #' @importFrom dplyr groups
+#' @importFrom dplyr rename_all
 ## usethis namespace: end
 NULL

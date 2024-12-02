@@ -153,6 +153,9 @@ subtotal_section <- function(report, frame, vars = "Population", aggregator = "s
   for (k in label_cols){
     report <- mutate_at(report, k, factor, report_levels_subtotal[[k]])
   }
+  if (TRUE %in% is.na(select(report, -all_of(label_cols)))){
+    warning("NA values detected in output. Setting agg_parameter to \"na.rm\" may resolve this.")
+  }
 
   arrange_at(report, label_cols)
 }
